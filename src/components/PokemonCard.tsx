@@ -34,7 +34,7 @@ export function PokemonCard({ pokemon }: PokemonCardProps) {
 
   return (
     <Link href={`/pokemon/${pokemon.name}`}>
-      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-4 sm:p-6 pokemon-card-hover cursor-pointer border-2 border-transparent hover:border-red-400 dark:hover:border-blue-400 relative overflow-hidden">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-4 sm:p-6 pokemon-card-hover cursor-pointer border-2 border-transparent hover:border-red-400 dark:hover:border-blue-400 relative overflow-hidden h-full flex flex-col">
         {/* Decorative Pokéball background */}
         <div className="absolute -right-8 -top-8 w-32 h-32 opacity-5 dark:opacity-10">
           <div className="w-full h-full border-8 border-gray-400 rounded-full"></div>
@@ -64,7 +64,7 @@ export function PokemonCard({ pokemon }: PokemonCardProps) {
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 min-h-[2.5rem]">
           {details.types.map((type) => (
             <span
               key={type.type.name}
@@ -75,7 +75,7 @@ export function PokemonCard({ pokemon }: PokemonCardProps) {
           ))}
         </div>
 
-        <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm bg-gray-50 dark:bg-gray-700/50 rounded-lg p-2">
+        <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm bg-gray-50 dark:bg-gray-700/50 rounded-lg p-2 mt-auto">
           <div className="text-center">
             <span className="block text-gray-500 dark:text-gray-400 text-xs">
               Altura
