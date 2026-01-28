@@ -70,7 +70,7 @@ export function PokemonFilters({
             id="generation-filter"
             value={selectedGeneration}
             onChange={(e) => onGenerationChange(e.target.value)}
-            className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-red-500 focus:border-red-500 dark:focus:ring-blue-500 dark:focus:border-blue-500 font-medium shadow-sm cursor-pointer transition-all"
+            className="w-full px-4 py-3 pr-10 border-2 border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-red-500 focus:border-red-500 dark:focus:ring-blue-500 dark:focus:border-blue-500 font-medium shadow-sm cursor-pointer transition-all hover:border-red-400 dark:hover:border-blue-400"
           >
             <option value="">Todas las generaciones</option>
             {generationsData?.results.map((gen) => (
@@ -93,7 +93,7 @@ export function PokemonFilters({
             id="type-filter"
             value={selectedType}
             onChange={(e) => onTypeChange(e.target.value)}
-            className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-red-500 focus:border-red-500 dark:focus:ring-blue-500 dark:focus:border-blue-500 font-medium shadow-sm cursor-pointer transition-all"
+            className="w-full px-4 py-3 pr-10 border-2 border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-red-500 focus:border-red-500 dark:focus:ring-blue-500 dark:focus:border-blue-500 font-medium shadow-sm cursor-pointer transition-all hover:border-red-400 dark:hover:border-blue-400"
           >
             <option value="">Todos los tipos</option>
             {typesData?.results
