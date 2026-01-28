@@ -97,7 +97,7 @@ export function PokemonFilters({
           >
             <option value="">Todos los tipos</option>
             {typesData?.results
-              .filter((type) => !["unknown", "shadow"].includes(type.name))
+              .filter((type) => !["unknown", "shadow", "stellar"].includes(type.name))
               .map((type) => (
                 <option key={type.name} value={type.name}>
                   {type.spanishName || type.name}
