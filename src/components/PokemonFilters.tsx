@@ -3,6 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchGenerations, fetchTypes } from "@/lib/api";
 import { getGenerationName } from "@/lib/generationMap";
+import { CustomDropdown } from "./CustomDropdown";
 
 interface PokemonFiltersProps {
   selectedType: string;
@@ -59,52 +60,36 @@ export function PokemonFilters({
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
         {/* Generation Filter */}
-        <div>
-          <label
-            htmlFor="generation-filter"
-            className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2"
-          >
-            Generación
-          </label>
-          <select
-            id="generation-filter"
-            value={selectedGeneration}
-            onChange={(e) => onGenerationChange(e.target.value)}
-            className="w-full px-4 py-3 pr-10 border-2 border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-red-500 focus:border-red-500 dark:focus:ring-blue-500 dark:focus:border-blue-500 font-medium shadow-sm cursor-pointer transition-all hover:border-red-400 dark:hover:border-blue-400"
-          >
-            <option value="">Todas las generaciones</option>
-            {generationsData?.results.map((gen) => (
-              <option key={gen.name} value={gen.name}>
-                {getGenerationName(gen.name)}
-              </option>
-            ))}
-          </select>
-        </div>
+        <CustomDropdown
+          id="generation-filter"
+          label="Generación"
+          value={selectedGeneration}
+          onChange={onGenerationChange}
+          placeholder="Todas las generaciones"
+          options={[
+            ...(generationsData?.results.map((gen) => ({
+              value: gen.name,
+              label: getGenerationName(gen.name),
+            })) || []),
+          ]}
+        />
 
         {/* Type Filter */}
-        <div>
-          <label
-            htmlFor="type-filter"
-            className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2"
-          >
-            Tipo
-          </label>
-          <select
-            id="type-filter"
-            value={selectedType}
-            onChange={(e) => onTypeChange(e.target.value)}
-            className="w-full px-4 py-3 pr-10 border-2 border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-red-500 focus:border-red-500 dark:focus:ring-blue-500 dark:focus:border-blue-500 font-medium shadow-sm cursor-pointer transition-all hover:border-red-400 dark:hover:border-blue-400"
-          >
-            <option value="">Todos los tipos</option>
-            {typesData?.results
+        <CustomDropdown
+          id="type-filter"
+          label="Tipo"
+          value={selectedType}
+          onChange={onTypeChange}
+          placeholder="Todos los tipos"
+          options={[
+            ...(typesData?.results
               .filter((type) => !["unknown", "shadow", "stellar"].includes(type.name))
-              .map((type) => (
-                <option key={type.name} value={type.name}>
-                  {type.spanishName || type.name}
-                </option>
-              ))}
-          </select>
-        </div>
+              .map((type) => ({
+                value: type.name,
+                label: type.spanishName || type.name,
+              })) || []),
+          ]}
+        />
       </div>
 
       {(selectedType || selectedGeneration || searchQuery) && (
