@@ -18,9 +18,6 @@ export default function Home() {
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-2 drop-shadow-lg">
               Pokédex
             </h1>
-            <div className="flex items-center justify-center gap-2 text-yellow-300">
-              <div className="w-3 h-3 sm:w-4 sm:h-4 bg-yellow-300 rounded-full animate-pulse"></div>
-            </div>
           </div>
           <p className="text-base sm:text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto px-4">
             Explora información en tiempo real de Pokémon usando PokéAPI
