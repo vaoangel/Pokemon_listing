@@ -20,14 +20,25 @@ Una aplicación web moderna que muestra información en tiempo real sobre Pokém
 - ✅ TypeScript estricto y React Query
 - ✅ Animaciones y transiciones suaves
 
-## 🛠️ Tecnologías Utilizadas
+## 🛠️ Tecnologías Utilizadas (T3 Stack Patterns)
+
+Este proyecto sigue las mejores prácticas y patrones de **T3 Stack**:
 
 - **Next.js 14** - Framework de React con App Router
-- **TypeScript** - Superset tipado de JavaScript
+- **TypeScript** - Superset tipado de JavaScript (strict mode)
 - **TailwindCSS** - Framework de CSS utility-first
 - **React Query (TanStack Query)** - Gestión de estado del servidor y caché
-- **Zod** - Validación de schemas TypeScript-first
+- **Zod** - Validación de schemas TypeScript-first con validación runtime
+- **clsx + tailwind-merge** - Utilidades para manejo de clases CSS (patrón T3)
 - **pnpm** - Gestor de paquetes rápido y eficiente
+
+### 🎯 Patrones T3 Stack Implementados
+
+- ✅ **Type-safe API calls** con validación Zod
+- ✅ **Utility functions** (`cn()` para clases CSS)
+- ✅ **Estructura de carpetas** siguiendo convenciones T3
+- ✅ **Validación runtime** con schemas Zod
+- ✅ **Type inference** desde schemas Zod
 
 ## 📋 Requisitos Previos
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { cn } from "@/lib/utils";
 
 interface CustomDropdownProps {
   id: string;
@@ -56,15 +57,20 @@ export function CustomDropdown({
         id={id}
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-4 py-3 pr-10 border-2 border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-red-500 focus:border-red-500 dark:focus:ring-blue-500 dark:focus:border-blue-500 font-medium shadow-sm cursor-pointer transition-all hover:border-red-400 dark:hover:border-blue-400 flex items-center justify-between"
+        className={cn(
+          "w-full px-4 py-3 pr-10 border-2 border-gray-300 dark:border-gray-600 rounded-xl",
+          "bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100",
+          "focus:ring-2 focus:ring-red-500 focus:border-red-500 dark:focus:ring-blue-500 dark:focus:border-blue-500",
+          "font-medium shadow-sm cursor-pointer transition-all",
+          "hover:border-red-400 dark:hover:border-blue-400",
+          "flex items-center justify-between"
+        )}
       >
         <span className={value ? "" : "text-gray-400 dark:text-gray-500"}>
           {selectedOption ? selectedOption.label : placeholder}
         </span>
         <svg
-          className={`w-5 h-5 transition-transform ${
-            isOpen ? "rotate-180" : ""
-          }`}
+          className={cn("w-5 h-5 transition-transform", isOpen && "rotate-180")}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -87,11 +93,11 @@ export function CustomDropdown({
                 onChange("");
                 setIsOpen(false);
               }}
-              className={`w-full px-4 py-3 text-left hover:bg-red-50 dark:hover:bg-gray-600 transition-colors ${
-                !value
-                  ? "bg-red-100 dark:bg-gray-600 font-semibold"
-                  : "text-gray-700 dark:text-gray-300"
-              }`}
+              className={cn(
+                "w-full px-4 py-3 text-left hover:bg-red-50 dark:hover:bg-gray-600 transition-colors",
+                !value && "bg-red-100 dark:bg-gray-600 font-semibold",
+                value && "text-gray-700 dark:text-gray-300"
+              )}
             >
               {placeholder}
             </button>
@@ -103,11 +109,11 @@ export function CustomDropdown({
                   onChange(option.value);
                   setIsOpen(false);
                 }}
-                className={`w-full px-4 py-3 text-left hover:bg-red-50 dark:hover:bg-gray-600 transition-colors ${
-                  value === option.value
-                    ? "bg-red-100 dark:bg-gray-600 font-semibold"
-                    : "text-gray-700 dark:text-gray-300"
-                }`}
+                className={cn(
+                  "w-full px-4 py-3 text-left hover:bg-red-50 dark:hover:bg-gray-600 transition-colors",
+                  value === option.value && "bg-red-100 dark:bg-gray-600 font-semibold",
+                  value !== option.value && "text-gray-700 dark:text-gray-300"
+                )}
               >
                 {option.label}
               </button>
