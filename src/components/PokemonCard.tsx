@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { fetchPokemonDetails } from "@/lib/api";
 import { getPokemonIdFromUrl, getGenerationFromId } from "@/lib/generationMap";
-import { getTypeClass, translateType } from "@/lib/typeUtils";
+import { getTypeClass } from "@/lib/typeUtils";
 import type { Pokemon } from "@/types/pokemon";
 
 interface PokemonCardProps {
@@ -70,7 +70,7 @@ export function PokemonCard({ pokemon }: PokemonCardProps) {
               key={type.type.name}
               className={`${getTypeClass(type.type.name)} text-xs sm:text-sm font-bold px-2.5 sm:px-3 py-1 rounded-full shadow-md border-2 border-white/30`}
             >
-              {translateType(type.type.name)}
+              {type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1)}
             </span>
           ))}
         </div>
@@ -78,7 +78,7 @@ export function PokemonCard({ pokemon }: PokemonCardProps) {
         <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm bg-gray-50 dark:bg-gray-700/50 rounded-lg p-2 mt-auto">
           <div className="text-center">
             <span className="block text-gray-500 dark:text-gray-400 text-xs">
-              Altura
+              Height
             </span>
             <span className="font-bold text-gray-800 dark:text-gray-100">
               {details.height / 10}m
@@ -86,7 +86,7 @@ export function PokemonCard({ pokemon }: PokemonCardProps) {
           </div>
           <div className="text-center border-l border-gray-300 dark:border-gray-600">
             <span className="block text-gray-500 dark:text-gray-400 text-xs">
-              Peso
+              Weight
             </span>
             <span className="font-bold text-gray-800 dark:text-gray-100">
               {details.weight / 10}kg

@@ -3,8 +3,6 @@ import type {
   PokemonDetails,
   PokemonSpecies,
   EvolutionChain,
-  TypeData,
-  TypeListItem,
 } from "@/types/pokemon";
 
 const BASE_URL = "https://pokeapi.co/api/v2";
@@ -14,7 +12,7 @@ export async function fetchAllPokemon(): Promise<PokemonListResponse> {
   const initialResponse = await fetch(`${BASE_URL}/pokemon?limit=1&offset=0`);
 
   if (!initialResponse.ok) {
-    throw new Error("Error al cargar la lista de Pokémon");
+    throw new Error("Error loading Pokémon list");
   }
 
   const initialData: PokemonListResponse = await initialResponse.json();
@@ -26,7 +24,7 @@ export async function fetchAllPokemon(): Promise<PokemonListResponse> {
   );
 
   if (!response.ok) {
-    throw new Error("Error al cargar la lista de Pokémon");
+    throw new Error("Error loading Pokémon list");
   }
 
   return response.json();
@@ -41,7 +39,7 @@ export async function fetchPokemonList(
   );
 
   if (!response.ok) {
-    throw new Error("Error al cargar la lista de Pokémon");
+    throw new Error("Error loading Pokémon list");
   }
 
   return response.json();
@@ -53,7 +51,7 @@ export async function fetchPokemonDetails(
   const response = await fetch(url);
 
   if (!response.ok) {
-    throw new Error("Error al cargar los detalles del Pokémon");
+    throw new Error("Error loading Pokémon details");
   }
 
   return response.json();
@@ -65,7 +63,7 @@ export async function fetchPokemonSpecies(
   const response = await fetch(url);
 
   if (!response.ok) {
-    throw new Error("Error al cargar la especie del Pokémon");
+    throw new Error("Error loading Pokémon species");
   }
 
   return response.json();
@@ -77,45 +75,22 @@ export async function fetchGenerations(): Promise<{
   const response = await fetch(`${BASE_URL}/generation`);
 
   if (!response.ok) {
-    throw new Error("Error al cargar las generaciones");
+    throw new Error("Error loading generations");
   }
 
   return response.json();
 }
 
-export async function fetchTypes(): Promise<{ results: TypeListItem[] }> {
+export async function fetchTypes(): Promise<{
+  results: Array<{ name: string; url: string }>;
+}> {
   const response = await fetch(`${BASE_URL}/type`);
 
   if (!response.ok) {
-    throw new Error("Error al cargar los tipos");
+    throw new Error("Error loading types");
   }
 
-  const data = await response.json();
-
-  // Fetch details for each type to get Spanish names
-  const typesWithNames = await Promise.all(
-    data.results.map(async (type: { name: string; url: string }) => {
-      try {
-        const detailResponse = await fetch(type.url);
-        if (!detailResponse.ok) {
-          return { ...type, spanishName: type.name };
-        }
-        const details: TypeData = await detailResponse.json();
-
-        // Find Spanish name
-        const spanishName =
-          details.names.find((n) => n.language.name === "es")?.name ||
-          type.name;
-
-        return { ...type, spanishName };
-      } catch (error) {
-        console.error(`Error fetching type details for ${type.name}:`, error);
-        return { ...type, spanishName: type.name };
-      }
-    })
-  );
-
-  return { results: typesWithNames };
+  return response.json();
 }
 
 // Helper function to get generation number from generation name
@@ -136,7 +111,7 @@ export async function fetchEvolutionChain(
   const response = await fetch(url);
 
   if (!response.ok) {
-    throw new Error("Error al cargar la cadena de evolución");
+    throw new Error("Error loading evolution chain");
   }
 
   return response.json();

@@ -37,7 +37,7 @@ export function PokemonFilters({
   return (
     <div className="mb-6 sm:mb-8 bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-4 sm:p-6 border-2 border-red-200 dark:border-blue-800">
       <h2 className="text-lg sm:text-xl font-bold text-transparent bg-clip-text pokemon-gradient mb-4">
-        Buscador y Filtros
+        Search and Filters
       </h2>
 
       {/* Search Box */}
@@ -46,14 +46,14 @@ export function PokemonFilters({
           htmlFor="search"
           className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2"
         >
-          Buscar Pokémon (incluye evoluciones)
+          Search Pokémon (includes evolutions)
         </label>
         <input
           id="search"
           type="text"
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          placeholder="Ej: Pikachu, Charizard..."
+          placeholder="E.g: Pikachu, Charizard..."
           className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-red-500 focus:border-red-500 dark:focus:ring-blue-500 dark:focus:border-blue-500 placeholder-gray-400 dark:placeholder-gray-500 transition-all shadow-sm"
         />
       </div>
@@ -62,10 +62,10 @@ export function PokemonFilters({
         {/* Generation Filter */}
         <CustomDropdown
           id="generation-filter"
-          label="Generación"
+          label="Generation"
           value={selectedGeneration}
           onChange={onGenerationChange}
-          placeholder="Todas las generaciones"
+          placeholder="All generations"
           options={[
             ...(generationsData?.results.map((gen) => ({
               value: gen.name,
@@ -77,16 +77,18 @@ export function PokemonFilters({
         {/* Type Filter */}
         <CustomDropdown
           id="type-filter"
-          label="Tipo"
+          label="Type"
           value={selectedType}
           onChange={onTypeChange}
-          placeholder="Todos los tipos"
+          placeholder="All types"
           options={[
             ...(typesData?.results
-              .filter((type) => !["unknown", "shadow", "stellar"].includes(type.name))
+              .filter(
+                (type) => !["unknown", "shadow", "stellar"].includes(type.name)
+              )
               .map((type) => ({
                 value: type.name,
-                label: type.spanishName || type.name,
+                label: type.name.charAt(0).toUpperCase() + type.name.slice(1),
               })) || []),
           ]}
         />
@@ -102,11 +104,11 @@ export function PokemonFilters({
             }}
             className="px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-xl font-bold transition-all text-sm shadow-md hover:shadow-lg transform hover:scale-105"
           >
-            Limpiar todo
+            Clear all
           </button>
           {searchQuery && (
             <span className="px-4 py-2 bg-gradient-to-r from-yellow-100 to-yellow-200 dark:from-blue-900 dark:to-purple-900 text-yellow-800 dark:text-blue-200 rounded-xl text-sm font-semibold border-2 border-yellow-300 dark:border-blue-700">
-              Buscando: <strong>{searchQuery}</strong>
+              Searching: <strong>{searchQuery}</strong>
             </span>
           )}
         </div>

@@ -10,7 +10,7 @@ import {
   fetchEvolutionChain,
 } from "@/lib/api";
 import { getGenerationFromId } from "@/lib/generationMap";
-import { getTypeClass, translateType } from "@/lib/typeUtils";
+import { getTypeClass } from "@/lib/typeUtils";
 import type { EvolutionLink } from "@/types/pokemon";
 import { MasterBallSpinner } from "./MasterBallSpinner";
 
@@ -59,11 +59,11 @@ export function PokemonDetailPage({ name }: PokemonDetailPageProps) {
 
   const statNames: Record<string, string> = {
     hp: "HP",
-    attack: "Ataque",
-    defense: "Defensa",
-    "special-attack": "At. Especial",
-    "special-defense": "Def. Especial",
-    speed: "Velocidad",
+    attack: "Attack",
+    defense: "Defense",
+    "special-attack": "Sp. Atk",
+    "special-defense": "Sp. Def",
+    speed: "Speed",
   };
 
   if (detailsLoading) {
@@ -73,7 +73,7 @@ export function PokemonDetailPage({ name }: PokemonDetailPageProps) {
           <div className="flex flex-col justify-center items-center h-64">
             <MasterBallSpinner size="h-16 w-16" />
             <p className="text-gray-600 dark:text-gray-400 mt-4">
-              Cargando Pokémon...
+              Loading Pokémon...
             </p>
           </div>
         </div>
@@ -86,7 +86,7 @@ export function PokemonDetailPage({ name }: PokemonDetailPageProps) {
       <div className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800">
         <div className="container mx-auto px-4 py-8">
           <div className="text-center text-red-600 dark:text-red-400">
-            <p className="text-xl">Pokémon no encontrado</p>
+            <p className="text-xl">Pokémon not found</p>
           </div>
         </div>
       </div>
@@ -117,7 +117,7 @@ export function PokemonDetailPage({ name }: PokemonDetailPageProps) {
               d="M15 19l-7-7 7-7"
             />
           </svg>
-          <span className="text-sm sm:text-base">Volver al listado</span>
+          <span className="text-sm sm:text-base">Back to list</span>
         </button>
 
         <div className="bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-6 md:p-8 border-4 border-red-200 dark:border-blue-800">
@@ -153,7 +153,7 @@ export function PokemonDetailPage({ name }: PokemonDetailPageProps) {
 
                 <div>
                   <p className="text-sm font-bold text-gray-600 dark:text-gray-400 mb-2">
-                    🎮 Generación
+                    Generation
                   </p>
                   <span className="inline-block px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl font-bold shadow-lg">
                     {generationInfo.name}
@@ -162,7 +162,7 @@ export function PokemonDetailPage({ name }: PokemonDetailPageProps) {
 
                 <div>
                   <p className="text-sm font-bold text-gray-600 dark:text-gray-400 mb-2">
-                    Tipos
+                    Types
                   </p>
                   <div className="flex flex-wrap gap-2 sm:gap-3">
                     {details.types.map((type) => (
@@ -170,7 +170,8 @@ export function PokemonDetailPage({ name }: PokemonDetailPageProps) {
                         key={type.type.name}
                         className={`${getTypeClass(type.type.name)} text-sm sm:text-base font-bold px-4 sm:px-6 py-2 sm:py-3 rounded-xl shadow-lg border-2 border-white/30 transform hover:scale-110 transition-transform`}
                       >
-                        {translateType(type.type.name)}
+                        {type.type.name.charAt(0).toUpperCase() +
+                          type.type.name.slice(1)}
                       </span>
                     ))}
                   </div>
@@ -179,7 +180,7 @@ export function PokemonDetailPage({ name }: PokemonDetailPageProps) {
                 <div className="grid grid-cols-2 gap-3 sm:gap-4 pt-4">
                   <div className="bg-gradient-to-br from-red-50 to-red-100 dark:from-gray-700 dark:to-gray-600 rounded-xl p-3 sm:p-4 shadow-md border-2 border-red-200 dark:border-red-900">
                     <p className="text-xs sm:text-sm font-bold text-red-600 dark:text-red-400">
-                      Altura
+                      Height
                     </p>
                     <p className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-100">
                       {details.height / 10}m
@@ -187,7 +188,7 @@ export function PokemonDetailPage({ name }: PokemonDetailPageProps) {
                   </div>
                   <div className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-700 dark:to-gray-600 rounded-xl p-3 sm:p-4 shadow-md border-2 border-blue-200 dark:border-blue-900">
                     <p className="text-xs sm:text-sm font-bold text-blue-600 dark:text-blue-400">
-                      Peso
+                      Weight
                     </p>
                     <p className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-100">
                       {details.weight / 10}kg
@@ -202,7 +203,7 @@ export function PokemonDetailPage({ name }: PokemonDetailPageProps) {
               {/* Stats */}
               <div>
                 <h2 className="text-xl sm:text-2xl font-bold text-transparent bg-clip-text pokemon-gradient mb-4">
-                  Estadísticas Base
+                  Base Stats
                 </h2>
                 <div className="space-y-3 sm:space-y-4">
                   {details.stats.map((stat) => (
@@ -249,7 +250,7 @@ export function PokemonDetailPage({ name }: PokemonDetailPageProps) {
               {evolutions.length > 1 && (
                 <div>
                   <h2 className="text-xl sm:text-2xl font-bold text-transparent bg-clip-text pokemon-gradient mb-4">
-                    Cadena Evolutiva
+                    Evolution Chain
                   </h2>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
                     {evolutions.map((evolutionName) => (

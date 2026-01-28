@@ -97,12 +97,6 @@ export interface TypeData {
   }>;
 }
 
-export interface TypeListItem {
-  name: string;
-  url: string;
-  spanishName?: string;
-}
-
 export interface EvolutionChain {
   id: number;
   chain: EvolutionLink;

@@ -111,7 +111,8 @@ export function CustomDropdown({
                 }}
                 className={cn(
                   "w-full px-4 py-3 text-left hover:bg-red-50 dark:hover:bg-gray-600 transition-colors",
-                  value === option.value && "bg-red-100 dark:bg-gray-600 font-semibold",
+                  value === option.value &&
+                    "bg-red-100 dark:bg-gray-600 font-semibold",
                   value !== option.value && "text-gray-700 dark:text-gray-300"
                 )}
               >

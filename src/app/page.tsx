@@ -20,7 +20,7 @@ export default function Home() {
             </h1>
           </div>
           <p className="text-base sm:text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto px-4">
-            Explora información en tiempo real de Pokémon usando PokéAPI
+            Explore real-time Pokémon information using PokéAPI
           </p>
         </header>
         <Suspense fallback={<LoadingFallback />}>

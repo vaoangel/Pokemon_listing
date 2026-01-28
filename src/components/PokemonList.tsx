@@ -270,7 +270,7 @@ export function PokemonList() {
       <div className="flex flex-col justify-center items-center h-64">
         <MasterBallSpinner size="h-16 w-16" />
         <p className="text-gray-600 dark:text-gray-400 mt-4">
-          Cargando Pokémon...
+          Loading Pokémon...
         </p>
       </div>
     );
@@ -279,7 +279,7 @@ export function PokemonList() {
   if (error) {
     return (
       <div className="text-center text-red-600 dark:text-red-400">
-        <p className="text-xl">Error al cargar los Pokémon</p>
+        <p className="text-xl">Error loading Pokémon</p>
         <p className="text-sm mt-2">{(error as Error).message}</p>
       </div>
     );
@@ -300,7 +300,7 @@ export function PokemonList() {
       {isLoadingMore && (
         <div className="fixed bottom-4 right-4 bg-purple-600 text-white px-4 py-2 rounded-lg shadow-lg z-50 flex items-center gap-3">
           <MasterBallSpinner size="h-5 w-5" />
-          <span className="text-sm font-medium">Cargando más Pokémon...</span>
+          <span className="text-sm font-medium">Loading more Pokémon...</span>
         </div>
       )}
 
@@ -332,8 +332,8 @@ export function PokemonList() {
             <MasterBallSpinner size="h-5 w-5" />
             <p className="text-purple-800 dark:text-purple-200">
               {isLoadingTypeFilter &&
-                "Cargando Pokémon del tipo seleccionado..."}
-              {isLoadingSearch && "Buscando evoluciones relacionadas..."}
+                "Loading Pokémon of selected type..."}
+              {isLoadingSearch && "Searching related evolutions..."}
             </p>
           </div>
         </div>
@@ -344,23 +344,22 @@ export function PokemonList() {
           <div className="mb-6">
             <div className="flex items-center justify-between mb-4">
               <p className="text-gray-700 dark:text-gray-300">
-                Mostrando{" "}
+                Showing{" "}
                 <span className="font-bold">
                   {startIndex + 1}-{Math.min(endIndex, filteredPokemon.length)}
                 </span>{" "}
-                de <span className="font-bold">{filteredPokemon.length}</span>{" "}
+                of <span className="font-bold">{filteredPokemon.length}</span>{" "}
                 Pokémon
                 {(selectedType || selectedGeneration || debouncedSearch) && (
                   <span className="text-sm text-gray-500 dark:text-gray-400">
                     {" "}
-                    (filtrado de {enrichedPokemon.length})
+                    (filtered from {enrichedPokemon.length})
                   </span>
                 )}
               </p>
               {debouncedSearch && nameFilteredPokemon.length >= 100 && (
                 <p className="text-sm text-amber-600 dark:text-amber-400">
-                  💡 Búsqueda de evoluciones limitada. Refina tu búsqueda para
-                  mejores resultados.
+                  💡 Evolution search limited. Refine your search for better results.
                 </p>
               )}
             </div>
@@ -375,7 +374,7 @@ export function PokemonList() {
                   disabled={currentPage === 1}
                   className="px-3 sm:px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed hover:from-red-600 hover:to-red-700 transition-all font-bold shadow-md hover:shadow-lg transform hover:scale-105 disabled:transform-none text-sm sm:text-base"
                 >
-                  ← Anterior
+                  ← Previous
                 </button>
 
                 <div className="flex gap-1 flex-wrap justify-center">
@@ -414,7 +413,7 @@ export function PokemonList() {
                   disabled={currentPage === totalPages}
                   className="px-3 sm:px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed hover:from-blue-600 hover:to-blue-700 transition-all font-bold shadow-md hover:shadow-lg transform hover:scale-105 disabled:transform-none text-sm sm:text-base"
                 >
-                  Siguiente →
+                  Next →
                 </button>
               </div>
             )}
@@ -440,7 +439,7 @@ export function PokemonList() {
               </button>
 
               <span className="px-4 py-2 text-gray-700 dark:text-gray-300">
-                Página {currentPage} de {totalPages}
+                Page {currentPage} of {totalPages}
               </span>
 
               <button
@@ -451,7 +450,7 @@ export function PokemonList() {
                 disabled={currentPage === totalPages}
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed hover:bg-blue-700 transition-colors"
               >
-                Siguiente →
+                  Next →
               </button>
             </div>
           )}
@@ -459,7 +458,7 @@ export function PokemonList() {
           {currentPagePokemon.length === 0 && (
             <div className="text-center py-12">
               <p className="text-xl text-gray-600 dark:text-gray-400">
-                No se encontraron Pokémon con los filtros seleccionados
+                No Pokémon found with selected filters
               </p>
               <button
                 onClick={() => {
@@ -469,7 +468,7 @@ export function PokemonList() {
                 }}
                 className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
               >
-                Limpiar filtros
+                Clear filters
               </button>
             </div>
           )}
