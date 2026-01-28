@@ -10,13 +10,23 @@ import type {
 const BASE_URL = "https://pokeapi.co/api/v2";
 
 export async function fetchAllPokemon(): Promise<PokemonListResponse> {
-  // Fetch first 1000 Pokemon (covers all generations up to Gen 9)
-  const response = await fetch(`${BASE_URL}/pokemon?limit=1000&offset=0`);
-
+  // First, get the count of all Pokemon available
+  const initialResponse = await fetch(`${BASE_URL}/pokemon?limit=1&offset=0`);
+  
+  if (!initialResponse.ok) {
+    throw new Error("Error al cargar la lista de Pokémon");
+  }
+  
+  const initialData: PokemonListResponse = await initialResponse.json();
+  const totalCount = initialData.count;
+  
+  // Now fetch all Pokemon using the actual count
+  const response = await fetch(`${BASE_URL}/pokemon?limit=${totalCount}&offset=0`);
+  
   if (!response.ok) {
     throw new Error("Error al cargar la lista de Pokémon");
   }
-
+  
   return response.json();
 }
 
