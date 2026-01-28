@@ -31,6 +31,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       
+      - name: Clean build cache
+        run: rm -rf .next
+      
       - name: Run ESLint
         run: pnpm run lint
       
