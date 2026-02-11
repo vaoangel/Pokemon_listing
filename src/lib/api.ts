@@ -3,6 +3,7 @@ import type {
   PokemonDetails,
   PokemonSpecies,
   EvolutionChain,
+  GenerationDetails,
 } from "@/types/pokemon";
 
 const BASE_URL = "https://pokeapi.co/api/v2";
@@ -128,4 +129,63 @@ export function getAllEvolutionNames(chain: EvolutionChain): string[] {
 
   traverse(chain.chain);
   return names;
+}
+
+// Fetch generation details to build dynamic ranges
+export async function fetchGenerationDetails(generationName: string): Promise<GenerationDetails> {
+  const response = await fetch(`${BASE_URL}/generation/${generationName}`);
+
+  if (!response.ok) {
+    throw new Error(`Error loading generation ${generationName}`);
+  }
+
+  return response.json();
+}
+
+// Build generation ranges dynamically from API
+export async function buildGenerationRanges() {
+  try {
+    const generationsResponse = await fetchGenerations();
+    const generations = generationsResponse.results;
+
+    const ranges = await Promise.all(
+      generations.map(async (gen) => {
+        const details = await fetchGenerationDetails(gen.name);
+        
+        // Extract Pokemon IDs from the generation
+        const pokemonIds = details.pokemon_species.map((species) => {
+          const match = species.url.match(/\/pokemon-species\/(\d+)\//);
+          return match ? parseInt(match[1]) : 0;
+        }).filter((id) => id > 0);
+
+        if (pokemonIds.length === 0) {
+          return null;
+        }
+
+        const min = Math.min(...pokemonIds);
+        const max = Math.max(...pokemonIds);
+        const genNumber = gen.name.match(/generation-(\w+)/)?.[1];
+        
+        // Convert roman numerals to arabic
+        const romanToArabic: Record<string, string> = {
+          'i': 'I', 'ii': 'II', 'iii': 'III', 'iv': 'IV', 
+          'v': 'V', 'vi': 'VI', 'vii': 'VII', 'viii': 'VIII', 
+          'ix': 'IX', 'x': 'X'
+        };
+
+        return {
+          generation: gen.name,
+          name: genNumber ? `Gen ${romanToArabic[genNumber.toLowerCase()] || genNumber.toUpperCase()}` : gen.name,
+          min,
+          max,
+        };
+      })
+    );
+
+    return ranges.filter((r): r is NonNullable<typeof r> => r !== null)
+      .sort((a, b) => a.min - b.min);
+  } catch (error) {
+    console.error('Error building generation ranges:', error);
+    return null;
+  }
 }

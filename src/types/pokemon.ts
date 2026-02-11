@@ -79,6 +79,19 @@ export interface Generation {
   };
 }
 
+export interface GenerationDetails {
+  id: number;
+  name: string;
+  pokemon_species: Array<{
+    name: string;
+    url: string;
+  }>;
+  main_region: {
+    name: string;
+    url: string;
+  };
+}
+
 export interface TypeData {
   id: number;
   name: string;

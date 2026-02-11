@@ -1,6 +1,6 @@
-// Generation mapping based on Pokemon ID ranges
-// This avoids having to fetch species data for every Pokemon
-export const GENERATION_RANGES = [
+// Static fallback generation mapping based on Pokemon ID ranges
+// This is used as fallback when dynamic loading fails or is not yet available
+export const FALLBACK_GENERATION_RANGES = [
   { generation: "generation-i", name: "Gen I", min: 1, max: 151 },
   { generation: "generation-ii", name: "Gen II", min: 152, max: 251 },
   { generation: "generation-iii", name: "Gen III", min: 252, max: 386 },
@@ -12,13 +12,35 @@ export const GENERATION_RANGES = [
   { generation: "generation-ix", name: "Gen IX", min: 906, max: 1025 },
 ];
 
+export type GenerationRange = {
+  generation: string;
+  name: string;
+  min: number;
+  max: number;
+};
+
+// Dynamic generation ranges (will be populated from API)
+let dynamicGenerationRanges: GenerationRange[] | null = null;
+
+// Set dynamic generation ranges (called after loading from API)
+export function setGenerationRanges(ranges: GenerationRange[]) {
+  dynamicGenerationRanges = ranges;
+}
+
+// Get current generation ranges (dynamic if available, fallback otherwise)
+export function getGenerationRanges(): GenerationRange[] {
+  return dynamicGenerationRanges || FALLBACK_GENERATION_RANGES;
+}
+
 export function getGenerationFromId(id: number): { generation: string; name: string } {
-  const gen = GENERATION_RANGES.find((g) => id >= g.min && id <= g.max);
+  const ranges = getGenerationRanges();
+  const gen = ranges.find((g) => id >= g.min && id <= g.max);
   return gen || { generation: "unknown", name: "Unknown" };
 }
 
 export function getGenerationName(generationKey: string): string {
-  const gen = GENERATION_RANGES.find((g) => g.generation === generationKey);
+  const ranges = getGenerationRanges();
+  const gen = ranges.find((g) => g.generation === generationKey);
   return gen?.name || generationKey;
 }
 
